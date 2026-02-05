@@ -1,4 +1,4 @@
-import '../dummy_data/dummy_data.dart';
+import 'package:w3/data/dummy_data.dart';
 import '../model/ride/locations.dart';
 import '../model/ride/ride.dart';
 
@@ -7,17 +7,32 @@ import '../model/ride/ride.dart';
 ///   - The list of available rides
 ///
 class RidesService {
-  static List<Ride> availableRides = fakeRides; 
+  static List<Ride> availableRides = fakeRides;
   // TODO for now fake data
 
   static List<Ride> filterByDeparture(Location departure) {
-    return [];
-  }
-    static List<Ride> filterBySeatRequested(Location departure) {
-    return [];
+    return availableRides
+        .where((ride) => ride.departureLocation == (departure))
+        .toList();
   }
 
-    static List<Ride> filterBy({Location? departure, int? seatRequested}) {
-    return [];
+  static List<Ride> filterBySeatRequested(int seatRequested) {
+    return availableRides
+        .where((ride) => ride.remainingSeats >= seatRequested)
+        .toList();
+  }
+
+static List<Ride> filterBy({Location? departure, int? seatRequested}) {
+    return availableRides.where((ride) {
+      if (departure != null && ride.departureLocation != departure) {
+        return false;
+      }
+
+      if (seatRequested != null && ride.remainingSeats < seatRequested) {
+        return false;
+      }
+
+      return true;
+    }).toList();
   }
 }

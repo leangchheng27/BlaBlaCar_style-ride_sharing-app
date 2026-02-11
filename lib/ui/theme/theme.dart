@@ -19,7 +19,7 @@ class BlaColors {
 
   static Color get backGroundColor { 
     return BlaColors.primary;
-  }
+  } 
 
   static Color get textNormal {
     return BlaColors.neutralDark;

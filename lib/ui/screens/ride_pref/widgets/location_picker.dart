@@ -31,6 +31,7 @@ class _LocationPickerScreenState extends State<_LocationPickerScreen> {
   @override
   void initState() {
     super.initState();
+    _filteredLocations = fakeLocations;
     _searchController.addListener(_filterLocations);
   }
 
@@ -44,7 +45,7 @@ class _LocationPickerScreenState extends State<_LocationPickerScreen> {
     final query = _searchController.text.toLowerCase().trim();
     setState(() {
       if (query.isEmpty) {
-        _filteredLocations = [];
+        _filteredLocations = fakeLocations;
       } else {
         _filteredLocations = fakeLocations.where((location) {
           final cityName = location.name.toLowerCase();
